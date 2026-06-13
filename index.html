@@ -70,10 +70,10 @@
     pointer-events: none;
     background-image:
       linear-gradient(to bottom,
-        rgba(0,0,0,0.30) 0%,
-        rgba(0,0,0,0.42) 34%,
-        rgba(0,0,0,0.48) 58%,
-        rgba(0,0,0,0.52) 100%),
+        rgba(227,230,218,0.73) 0%,
+        rgba(227,230,218,0.39) 34%,
+        rgba(227,230,218,0.34) 58%,
+        rgba(227,230,218,0.63) 100%),
       url("images/bild2.jpeg");
     background-size: cover, cover;
     background-position: center top, center 62%;
@@ -110,18 +110,18 @@
     }
 
     .nav-btn {
-      @apply font-sans flex items-center justify-center text-center text-[1.13rem] font-medium tracking-[0.16em] uppercase text-cream no-underline px-4 py-3 rounded-[10px] transition-all duration-200;
-      background: rgba(0, 0, 0, 0.45);
-      border: 1px solid rgba(255, 255, 255, 0.6);
+      @apply font-sans flex items-center justify-center text-center text-[1.13rem] font-medium tracking-[0.16em] uppercase text-[#4d5142] no-underline px-4 py-3 rounded-[10px] transition-all duration-200;
+      border: 1px solid rgba(0, 0, 0, 0.7);
     }
     .nav-btn:hover {
-      @apply -translate-y-px;
-      background: rgba(0, 0, 0, 0.62);
-      border-color: rgba(255, 255, 255, 0.95);
+      @apply -translate-y-px text-ink-deep;
+      background: rgba(139, 150, 120, 0.1);
+      border-color: rgba(0, 0, 0, 1);
     }
     .nav-btn.active {
-      background: rgba(0, 0, 0, 0.62);
-      border-color: rgba(255, 255, 255, 0.95);
+      @apply text-ink-deep;
+      background: rgba(139, 150, 120, 0.18);
+      border-color: rgba(0, 0, 0, 1);
     }
   }
 
@@ -177,10 +177,10 @@
       </header>
 
       <section class="max-w-[620px] w-full px-4 text-center -mt-12 opacity-0 animate-fade-up-delayed">
-        <h2 class="font-serif font-medium text-[clamp(2.3rem,4.6vw,3.22rem)] text-cream leading-[1.2] mb-5 tracking-[0.02em] [text-wrap:balance] [text-shadow:0_1px_10px_rgba(0,0,0,0.45)]">
+        <h2 class="font-serif font-medium text-[clamp(2.3rem,4.6vw,3.22rem)] text-ink-deep leading-[1.2] mb-5 tracking-[0.02em] [text-wrap:balance]">
           Unterstützung, wenn das Leben herausfordernd wird.
         </h2>
-        <p class="font-serif font-normal text-[1.44rem] text-cream/90 max-w-[500px] mx-auto leading-[1.6] [text-shadow:0_1px_8px_rgba(0,0,0,0.4)]">
+        <p class="font-serif font-normal text-[1.44rem] text-ink max-w-[500px] mx-auto leading-[1.6]">
           Psychosoziale Begleitung im Alltag
         </p>
       </section>
