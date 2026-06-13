@@ -1,0 +1,217 @@
+<!DOCTYPE html>
+<html lang="de">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Wer wir sind – Via Mentis</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500&family=Marcellus&display=swap" rel="stylesheet">
+<script src="https://cdn.tailwindcss.com"></script>
+<script>
+  tailwind.config = {
+    theme: {
+      extend: {
+        colors: {
+          sand: '#d6dac8',
+          'sand-deep': '#c4c6b8',
+          terracotta: '#c66f52',
+          sage: '#8b9678',
+          'sage-deep': '#6f745e',
+          'sage-darker': '#565b46',
+          'sage-bright': '#7c8268',
+          'dusk-blue': '#6f745e',
+          ink: '#2a2a2a',
+          'ink-deep': '#1f1f1d',
+          cream: '#f3f4ee',
+          champagne: '#e3e6da',
+        },
+        fontFamily: {
+          serif: ['"Marcellus"', 'Georgia', 'serif'],
+          sans: ['Inter', 'sans-serif'],
+          display: ['"Marcellus"', 'Georgia', 'serif'],
+        },
+        keyframes: {
+          fadeUp: {
+            '0%': { opacity: '0', transform: 'translateY(24px)' },
+            '100%': { opacity: '1', transform: 'translateY(0)' },
+          },
+          fadeIn: {
+            '0%': { opacity: '0' },
+            '100%': { opacity: '1' },
+          },
+        },
+        animation: {
+          'fade-up': 'fadeUp 1s cubic-bezier(0.2, 0.8, 0.2, 1) both',
+          'fade-up-delayed': 'fadeUp 1.2s cubic-bezier(0.2, 0.8, 0.2, 1) 0.3s forwards',
+          'fade-in': 'fadeIn 1.5s ease 0.6s forwards',
+        },
+      },
+    },
+  };
+</script>
+<style type="text/tailwindcss">
+  /* Noise-Textur als Overlay */
+  body::before {
+    content: "";
+    position: fixed;
+    inset: 0;
+    pointer-events: none;
+    opacity: 0.06;
+    mix-blend-mode: multiply;
+    background-image: url("data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' width='200' height='200'><filter id='n'><feTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='2' stitchTiles='stitch'/><feColorMatrix values='0 0 0 0 0.4  0 0 0 0 0.3  0 0 0 0 0.2  0 0 0 0.08 0'/></filter><rect width='100%25' height='100%25' filter='url(%23n)'/></svg>");
+    z-index: 1;
+  }
+  @layer components {
+    .back-link {
+      @apply inline-flex items-center gap-2 font-sans text-[0.85rem] font-medium tracking-[0.14em] uppercase text-ink no-underline opacity-70 transition-all duration-[250ms];
+    }
+    .back-link:hover { @apply opacity-100 -translate-x-[3px]; }
+
+    .prose-block h2 {
+      @apply font-serif font-medium text-[clamp(1.5rem,2.6vw,1.9rem)] text-ink-deep leading-[1.25] mt-7 mb-2;
+    }
+    .prose-block p {
+      @apply font-serif font-normal text-[1.15rem] text-ink leading-[1.6] mb-3;
+    }
+    .prose-block p + p { @apply mt-0; }
+
+    .nav-btn {
+      @apply font-sans text-[1.13rem] font-medium tracking-[0.16em] uppercase text-[#4d5142] no-underline px-6 py-3 rounded-[10px] transition-all duration-200;
+      border: 1px solid rgba(139, 150, 120, 0.65);
+    }
+    .nav-btn:hover {
+      @apply -translate-y-px text-ink-deep;
+      background: rgba(139, 150, 120, 0.1);
+      border-color: rgba(139, 150, 120, 1);
+    }
+    .nav-btn.active {
+      @apply text-ink-deep;
+      background: rgba(139, 150, 120, 0.18);
+      border-color: rgba(139, 150, 120, 1);
+    }
+  }
+
+  /* Terracotta-Linie, die sich um den Button-Rahmen biegt */
+  @keyframes orbitDash {
+    to { stroke-dashoffset: -100; }
+  }
+  .orbit-btn { position: relative; }
+  .orbit-line {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    overflow: visible;
+    pointer-events: none;
+    z-index: 3;
+  }
+  .orbit-line rect {
+    fill: none;
+    stroke: #c66f52;
+    stroke-width: 2;
+    stroke-linecap: round;
+    stroke-dasharray: 8 92;
+    stroke-dashoffset: 0;
+    filter: drop-shadow(0 0 2px rgba(198, 111, 82, 0.5));
+    animation: orbitDash 16s linear infinite;
+  }
+  .orbit-btn:disabled .orbit-line { display: none; }
+  @media (prefers-reduced-motion: reduce) {
+    .orbit-line { display: none; }
+    .orbit-line rect { animation: none; }
+  }
+</style>
+</head>
+<body class="font-sans text-ink bg-champagne bg-fixed min-h-screen p-4 sm:p-8 relative overflow-x-hidden">
+  <svg width="0" height="0" class="absolute" aria-hidden="true">
+    <filter id="sharpen">
+      <feConvolveMatrix order="3" preserveAlpha="true"
+        kernelMatrix="0 -0.4 0  -0.4 2.6 -0.4  0 -0.4 0"/>
+    </filter>
+  </svg>
+
+  <div class="relative z-10 flex flex-col min-h-[calc(100vh-2rem)] sm:min-h-[calc(100vh-4rem)] pb-6 sm:pb-8">
+    <main class="flex-1 w-full flex flex-col items-center gap-3 sm:gap-5 pt-2 sm:pt-3">
+    <header class="text-center p-4 animate-fade-up">
+      <a href="via-mentis.html" aria-label="Zur Startseite">
+        <img
+          src="images/logo-final.png"
+          alt="Via Mentis"
+          class="block mx-auto w-full max-w-[90px] sm:max-w-[110px] drop-shadow-[0_6px_16px_rgba(198,111,82,0.22)]"
+        >
+      </a>
+    </header>
+
+    <section class="max-w-[680px] lg:max-w-[1000px] w-full px-4 opacity-0 animate-fade-up-delayed">
+
+      <div class="text-center mb-6">
+        <h1 class="font-serif font-medium text-[clamp(2.4rem,4.6vw,3.1rem)] text-ink leading-[1.1]">Wer bin ich</h1>
+      </div>
+
+      <div class="prose-block">
+
+        <div class="rounded-[16px] px-6 py-6 sm:px-8 border-l-[3px] border-terracotta mb-9 flex flex-col sm:flex-row sm:items-center gap-4 sm:gap-8" style="background:#d6dac8;">
+          <figure class="shrink-0 mx-auto sm:mx-0 mb-0">
+            <img src="images/foto-cutout.png" alt="Ann Katrin Beck"
+                 class="block w-auto max-h-[150px] sm:max-h-[185px] [-webkit-mask-image:linear-gradient(to_bottom,#000_76%,transparent_100%)] [mask-image:linear-gradient(to_bottom,#000_76%,transparent_100%)]">
+          </figure>
+          <div class="text-center sm:text-left">
+            <h2 class="!my-0 !text-center sm:!text-left">Ann Katrin Beck</h2>
+          </div>
+        </div>
+
+        <div class="lg:columns-2 lg:gap-x-12 [&>p]:break-inside-avoid">
+          <p class="!mt-0">
+            Als diplomierte Pflegefachfrau HF mit Schwerpunkt Psychiatrie begleite ich seit über 15 Jahren Menschen in herausfordernden Lebenssituationen.
+          </p>
+          <p>
+            Während meiner langjährigen Tätigkeit in der psychiatrischen Pflege begleitete ich Menschen in unterschiedlichen Lebensphasen. Besonders geprägt haben mich die Arbeit in der Gemeindepsychiatrie und im Case Management sowie meine Erfahrungen in der Akutpsychiatrie, Psychosomatik, Alterspsychiatrie und Forensik. Diese vielfältigen Erfahrungen ermöglichen es mir, Menschen mit unterschiedlichen Bedürfnissen individuell und ressourcenorientiert zu begleiten.
+          </p>
+          <p>
+            Neben der Arbeit mit Erwachsenen liegt mir auch die Begleitung von Jugendlichen und jungen Erwachsenen am Herzen. Durch meine langjährige Tätigkeit in der Bildung durfte ich viele junge Menschen in ihrer persönlichen und beruflichen Entwicklung unterstützen und begleiten. Ich weiss, wie herausfordernd Übergänge, Belastungen und Krisen sein können und wie wichtig dabei Orientierung, Vertrauen und eine verlässliche Begleitung sind.
+          </p>
+          <p>
+            Die Arbeit mit Menschen steht für mich seit jeher im Mittelpunkt. Ich begegne jedem Menschen mit Wertschätzung, Empathie und Respekt. Nicht die Diagnose, sondern der Mensch mit seiner persönlichen Geschichte, seinen Stärken und seinen individuellen Bedürfnissen steht für mich im Vordergrund.
+          </p>
+        </div>
+
+        <h2>Meine Haltung</h2>
+        <div class="lg:columns-2 lg:gap-x-12 [&>p]:break-inside-avoid">
+          <p>
+            Mit Via Mentis habe ich mich bewusst für eine persönliche und alltagsnahe Form der Begleitung entschieden.
+          </p>
+          <p>
+            Vielleicht befinden Sie sich gerade in einer belastenden Lebensphase, wünschen sich mehr Orientierung im Alltag oder benötigen Unterstützung auf Ihrem persönlichen Weg. Mir ist wichtig, dass Sie sich mit Ihren Anliegen ernst genommen fühlen und in Ihrem eigenen Tempo begleitet werden.
+          </p>
+          <p>
+            Ich verstehe psychosoziale Begleitung als wertvolle Ergänzung zur medizinischen und psychotherapeutischen Behandlung. Mein Ziel ist es, Sie in Ihrem gewohnten Umfeld zu stärken, Sie in schwierigen Zeiten zu begleiten und gemeinsam Wege zu finden, die Stabilität, Selbstständigkeit und Lebensqualität fördern.
+          </p>
+          <p>
+            Ich bin überzeugt, dass eine vertrauensvolle Beziehung, Kontinuität und eine Begleitung auf Augenhöhe wesentlich dazu beitragen können, Sicherheit zu vermitteln, Krisen vorzubeugen und neue Perspektiven zu eröffnen.
+          </p>
+          <p>
+            Sie stehen mit Ihrer persönlichen Geschichte, Ihren Stärken und Ihren individuellen Bedürfnissen im Mittelpunkt. Gemeinsam können wir Ressourcen entdecken, Zuversicht stärken und Schritte entwickeln, die Ihnen im Alltag Sicherheit und Orientierung geben.
+          </p>
+          <p>
+            Via Mentis steht für eine professionelle, wertschätzende und individuelle Begleitung – mit Zeit, Vertrauen und dem Blick auf das, was Sie stärkt und Ihnen wichtig ist.
+          </p>
+        </div>
+
+      </div>
+
+    </section>
+    </main>
+
+    <footer class="w-full max-w-[720px] mx-auto px-4 mt-10">
+      <nav class="flex flex-wrap items-center justify-center gap-2.5 pt-7 border-t border-[rgba(139,150,120,0.3)]">
+        <a href="via-mentis.html" class="nav-btn orbit-btn"><svg class="orbit-line" aria-hidden="true" focusable="false"><rect x="0" y="0" width="100%" height="100%" rx="10" ry="10" pathLength="100"/></svg>Start</a>
+        <a href="angebot.html" class="nav-btn orbit-btn"><svg class="orbit-line" aria-hidden="true" focusable="false"><rect x="0" y="0" width="100%" height="100%" rx="10" ry="10" pathLength="100"/></svg>Angebot</a>
+        <a href="gebiet.html" class="nav-btn orbit-btn"><svg class="orbit-line" aria-hidden="true" focusable="false"><rect x="0" y="0" width="100%" height="100%" rx="10" ry="10" pathLength="100"/></svg>Gebiet</a>
+        <a href="kontakt.html" class="nav-btn orbit-btn"><svg class="orbit-line" aria-hidden="true" focusable="false"><rect x="0" y="0" width="100%" height="100%" rx="10" ry="10" pathLength="100"/></svg>Kontakt</a>
+      </nav>
+    </footer>
+  </div>
+</body>
+</html>

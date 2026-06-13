@@ -1,0 +1,283 @@
+<!DOCTYPE html>
+<html lang="de">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Kontakt – Via Mentis</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500&family=Marcellus&display=swap" rel="stylesheet">
+<script src="https://cdn.tailwindcss.com"></script>
+<script>
+  tailwind.config = {
+    theme: {
+      extend: {
+        colors: {
+          sand: '#d6dac8',
+          'sand-deep': '#c4c6b8',
+          terracotta: '#c66f52',
+          sage: '#8b9678',
+          'sage-deep': '#6f745e',
+          'sage-darker': '#565b46',
+          'sage-bright': '#7c8268',
+          'dusk-blue': '#6f745e',
+          ink: '#2a2a2a',
+          'ink-deep': '#1f1f1d',
+          cream: '#f3f4ee',
+          champagne: '#e3e6da',
+        },
+        fontFamily: {
+          serif: ['"Marcellus"', 'Georgia', 'serif'],
+          sans: ['Inter', 'sans-serif'],
+          display: ['"Marcellus"', 'Georgia', 'serif'],
+        },
+        keyframes: {
+          fadeUp: {
+            '0%': { opacity: '0', transform: 'translateY(24px)' },
+            '100%': { opacity: '1', transform: 'translateY(0)' },
+          },
+          fadeIn: {
+            '0%': { opacity: '0' },
+            '100%': { opacity: '1' },
+          },
+        },
+        animation: {
+          'fade-up': 'fadeUp 1s cubic-bezier(0.2, 0.8, 0.2, 1) both',
+          'fade-up-delayed': 'fadeUp 1.2s cubic-bezier(0.2, 0.8, 0.2, 1) 0.3s forwards',
+          'fade-up-fast': 'fadeUp 0.6s ease',
+          'fade-in': 'fadeIn 1.5s ease 0.6s forwards',
+        },
+      },
+    },
+  };
+</script>
+<style type="text/tailwindcss">
+  /* Noise-Textur als Overlay */
+  body::before {
+    content: "";
+    position: fixed;
+    inset: 0;
+    pointer-events: none;
+    opacity: 0.06;
+    mix-blend-mode: multiply;
+    background-image: url("data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' width='200' height='200'><filter id='n'><feTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='2' stitchTiles='stitch'/><feColorMatrix values='0 0 0 0 0.4  0 0 0 0 0.3  0 0 0 0 0.2  0 0 0 0.08 0'/></filter><rect width='100%25' height='100%25' filter='url(%23n)'/></svg>");
+    z-index: 1;
+  }
+  @layer components {
+    .back-link {
+      @apply inline-flex items-center gap-2 font-sans text-[0.85rem] font-medium tracking-[0.14em] uppercase text-ink no-underline opacity-70 transition-all duration-[250ms];
+    }
+    .back-link:hover { @apply opacity-100 -translate-x-[3px]; }
+
+    .form-label {
+      @apply font-sans text-[0.88rem] font-medium tracking-[0.14em] uppercase text-ink-deep mb-[0.55rem];
+    }
+
+    .form-input {
+      @apply font-sans text-[1.1rem] text-ink rounded-[10px] px-[1.1rem] py-[0.95rem] w-full outline-none transition-all duration-[250ms];
+      background: rgba(255, 252, 245, 0.75);
+      border: 1px solid rgba(111, 116, 94, 0.3);
+    }
+    .form-input::placeholder { color: rgba(111, 116, 94, 0.5); }
+    .form-input:hover {
+      border-color: rgba(111, 116, 94, 0.45);
+      background: rgba(255, 252, 245, 0.9);
+    }
+    .form-input:focus {
+      border-color: #6f745e;
+      background: rgba(255, 252, 245, 1);
+      box-shadow: 0 0 0 4px rgba(198, 111, 82, 0.2);
+    }
+
+    .form-card {
+      @apply rounded-[20px] px-9 py-8;
+      background: #d6dac8;
+      border: 1px solid rgba(111, 116, 94, 0.3);
+      box-shadow: 0 20px 50px rgba(198, 111, 82, 0.18), inset 0 1px 0 rgba(255, 255, 255, 0.35);
+    }
+    @media (max-width: 600px) {
+      .form-card { @apply px-[1.4rem] py-7; }
+    }
+
+    .submit-btn {
+      @apply font-sans text-[1.37rem] font-medium tracking-[0.18em] uppercase text-[#4d5142] px-[3.46rem] py-[1.51rem] rounded-[12px] cursor-pointer transition-all duration-300 ease-[cubic-bezier(0.2,0.8,0.2,1)];
+      background: transparent;
+      border: 1px solid rgba(139, 150, 120, 0.91);
+    }
+    .submit-btn:hover {
+      @apply -translate-y-0.5;
+      background: rgba(139, 150, 120, 0.1);
+      border-color: rgba(139, 150, 120, 1);
+    }
+    .submit-btn:active { @apply translate-y-0; }
+    .submit-btn:disabled { @apply opacity-70 cursor-not-allowed translate-y-0; }
+    @media (max-width: 600px) {
+      .submit-btn { @apply w-full; }
+    }
+
+    .success-message {
+      @apply text-center py-10 px-4 font-serif text-[1.5rem] text-sage-deep leading-[1.5] hidden;
+    }
+    .success-message.visible { @apply block animate-fade-up-fast; }
+    .success-message .check {
+      @apply inline-flex items-center justify-center w-[58px] h-[58px] rounded-full mb-4 text-sage-deep text-[1.9rem];
+      background: rgba(124, 130, 104, 0.2);
+    }
+
+    .nav-btn {
+      @apply font-sans text-[1.13rem] font-medium tracking-[0.16em] uppercase text-[#4d5142] no-underline px-6 py-3 rounded-[10px] transition-all duration-200;
+      border: 1px solid rgba(139, 150, 120, 0.65);
+    }
+    .nav-btn:hover {
+      @apply -translate-y-px text-ink-deep;
+      background: rgba(139, 150, 120, 0.1);
+      border-color: rgba(139, 150, 120, 1);
+    }
+    .nav-btn.active {
+      @apply text-ink-deep;
+      background: rgba(139, 150, 120, 0.18);
+      border-color: rgba(139, 150, 120, 1);
+    }
+  }
+
+  /* Terracotta-Linie, die sich um den Button-Rahmen biegt */
+  @keyframes orbitDash {
+    to { stroke-dashoffset: -100; }
+  }
+  .orbit-btn { position: relative; }
+  .orbit-line {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    overflow: visible;
+    pointer-events: none;
+    z-index: 3;
+  }
+  .orbit-line rect {
+    fill: none;
+    stroke: #c66f52;
+    stroke-width: 2;
+    stroke-linecap: round;
+    stroke-dasharray: 8 92;
+    stroke-dashoffset: 0;
+    filter: drop-shadow(0 0 2px rgba(198, 111, 82, 0.5));
+    animation: orbitDash 16s linear infinite;
+  }
+  .orbit-btn:disabled .orbit-line { display: none; }
+  @media (prefers-reduced-motion: reduce) {
+    .orbit-line { display: none; }
+    .orbit-line rect { animation: none; }
+  }
+</style>
+</head>
+<body class="font-sans text-ink bg-champagne bg-fixed min-h-screen p-4 sm:p-8 relative overflow-x-hidden">
+  <svg width="0" height="0" class="absolute" aria-hidden="true">
+    <filter id="sharpen">
+      <feConvolveMatrix order="3" preserveAlpha="true"
+        kernelMatrix="0 -0.4 0  -0.4 2.6 -0.4  0 -0.4 0"/>
+    </filter>
+  </svg>
+
+  <div class="relative z-10 flex flex-col min-h-[calc(100vh-2rem)] sm:min-h-[calc(100vh-4rem)] pb-6 sm:pb-8">
+    <main class="flex-1 w-full flex flex-col items-center gap-3 sm:gap-5 pt-2 sm:pt-3">
+    <header class="text-center p-4 animate-fade-up">
+      <a href="via-mentis.html" aria-label="Zur Startseite">
+        <img
+          src="images/logo-final.png"
+          alt="Via Mentis"
+          class="block mx-auto w-full max-w-[90px] sm:max-w-[110px] drop-shadow-[0_6px_16px_rgba(198,111,82,0.22)]"
+        >
+      </a>
+    </header>
+
+    <section class="max-w-[620px] w-full px-4 opacity-0 animate-fade-up-delayed">
+      <div class="text-center mb-6">
+        <h1 class="font-serif font-medium text-[clamp(2.4rem,4.6vw,3.1rem)] text-ink leading-[1.15] mb-3">Lassen Sie uns sprechen</h1>
+        <p class="font-serif font-normal text-[1.25rem] text-ink max-w-[500px] mx-auto leading-[1.5]">
+          Schreiben Sie mir – ich melde mich innerhalb von zwei Werktagen bei Ihnen zurück. Vertraulich und unverbindlich.
+        </p>
+      </div>
+
+      <form class="form-card" id="contactForm" novalidate>
+        <div class="grid grid-cols-1 sm:grid-cols-2 gap-4 mb-4">
+          <div class="flex flex-col">
+            <label for="name" class="form-label">Name<span class="text-terracotta ml-0.5">*</span></label>
+            <input type="text" id="name" name="name" autocomplete="family-name" required placeholder="Muster" class="form-input">
+          </div>
+          <div class="flex flex-col">
+            <label for="vorname" class="form-label">Vorname<span class="text-terracotta ml-0.5">*</span></label>
+            <input type="text" id="vorname" name="vorname" autocomplete="given-name" required placeholder="Anna" class="form-input">
+          </div>
+        </div>
+
+        <div class="grid grid-cols-1 sm:grid-cols-2 gap-4 mb-4">
+          <div class="flex flex-col">
+            <label for="telefon" class="form-label">Telefonnummer</label>
+            <input type="tel" id="telefon" name="telefon" autocomplete="tel" placeholder="+41 79 123 45 67" class="form-input">
+          </div>
+          <div class="flex flex-col">
+            <label for="email" class="form-label">E-Mail<span class="text-terracotta ml-0.5">*</span></label>
+            <input type="email" id="email" name="email" autocomplete="email" required placeholder="anna@beispiel.ch" class="form-input">
+          </div>
+        </div>
+
+        <div class="flex flex-col mb-4">
+          <label for="anfrage" class="form-label">Anfrage<span class="text-terracotta ml-0.5">*</span></label>
+          <textarea id="anfrage" name="anfrage" required placeholder="Worum geht es? Was beschäftigt Sie gerade?" class="form-input resize-y min-h-[104px] leading-[1.5]"></textarea>
+        </div>
+
+        <div class="mt-5 flex flex-wrap items-center justify-between gap-4 max-[600px]:flex-col max-[600px]:items-stretch">
+          <p class="font-serif text-[1.1rem] text-ink flex-1 min-w-[200px]">Ihre Angaben werden vertraulich behandelt.</p>
+          <button type="submit" class="submit-btn orbit-btn"><svg class="orbit-line" aria-hidden="true" focusable="false"><rect x="0" y="0" width="100%" height="100%" rx="12" ry="12" pathLength="100"/></svg>Anfrage senden</button>
+        </div>
+      </form>
+
+      <div class="success-message" id="successMessage">
+        <span class="check">✓</span><br>
+        Vielen Dank für Ihre Nachricht.<br>
+        Ich melde mich in Kürze bei Ihnen.
+      </div>
+
+      <div class="mt-7 text-center">
+        <p class="font-display text-[1.15rem] tracking-[0.04em] text-ink-deep mb-3">Ann Katrin Beck</p>
+        <div class="flex flex-wrap items-center justify-center gap-x-7 gap-y-2 font-sans text-[1rem]">
+          <a href="tel:+41786139197" class="text-ink no-underline hover:text-sage-deep transition-colors">078 613 91 97</a>
+          <a href="mailto:a.beck@via-mentis.ch" class="text-ink no-underline hover:text-sage-deep transition-colors">a.beck@via-mentis.ch</a>
+        </div>
+      </div>
+    </section>
+    </main>
+
+    <footer class="w-full max-w-[720px] mx-auto px-4 mt-10">
+      <nav class="flex flex-wrap items-center justify-center gap-2.5 pt-7 border-t border-[rgba(139,150,120,0.3)]">
+        <a href="via-mentis.html" class="nav-btn orbit-btn"><svg class="orbit-line" aria-hidden="true" focusable="false"><rect x="0" y="0" width="100%" height="100%" rx="10" ry="10" pathLength="100"/></svg>Start</a>
+        <a href="angebot.html" class="nav-btn orbit-btn"><svg class="orbit-line" aria-hidden="true" focusable="false"><rect x="0" y="0" width="100%" height="100%" rx="10" ry="10" pathLength="100"/></svg>Angebot</a>
+        <a href="ueber-uns.html" class="nav-btn orbit-btn"><svg class="orbit-line" aria-hidden="true" focusable="false"><rect x="0" y="0" width="100%" height="100%" rx="10" ry="10" pathLength="100"/></svg>Über mich</a>
+        <a href="gebiet.html" class="nav-btn orbit-btn"><svg class="orbit-line" aria-hidden="true" focusable="false"><rect x="0" y="0" width="100%" height="100%" rx="10" ry="10" pathLength="100"/></svg>Gebiet</a>
+      </nav>
+    </footer>
+  </div>
+
+  <script>
+    const form = document.getElementById('contactForm');
+    const success = document.getElementById('successMessage');
+    form.addEventListener('submit', (e) => {
+      e.preventDefault();
+      if (!form.checkValidity()) {
+        form.reportValidity();
+        return;
+      }
+      const btn = form.querySelector('.submit-btn');
+      btn.disabled = true;
+      btn.textContent = 'Wird gesendet…';
+      setTimeout(() => {
+        form.style.display = 'none';
+        success.classList.add('visible');
+        success.scrollIntoView({ behavior: 'smooth', block: 'center' });
+      }, 700);
+    });
+  </script>
+</body>
+</html>

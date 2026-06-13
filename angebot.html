@@ -1,0 +1,246 @@
+<!DOCTYPE html>
+<html lang="de">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Mein Angebot – Via Mentis</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500&family=Marcellus&display=swap" rel="stylesheet">
+<script src="https://cdn.tailwindcss.com"></script>
+<script>
+  tailwind.config = {
+    theme: {
+      extend: {
+        colors: {
+          sand: '#d6dac8',
+          'sand-deep': '#c4c6b8',
+          terracotta: '#c66f52',
+          sage: '#8b9678',
+          'sage-deep': '#6f745e',
+          'sage-darker': '#565b46',
+          'sage-bright': '#7c8268',
+          'dusk-blue': '#6f745e',
+          ink: '#2a2a2a',
+          'ink-deep': '#1f1f1d',
+          cream: '#f3f4ee',
+          champagne: '#e3e6da',
+        },
+        fontFamily: {
+          serif: ['"Marcellus"', 'Georgia', 'serif'],
+          sans: ['Inter', 'sans-serif'],
+          display: ['"Marcellus"', 'Georgia', 'serif'],
+        },
+        keyframes: {
+          fadeUp: {
+            '0%': { opacity: '0', transform: 'translateY(24px)' },
+            '100%': { opacity: '1', transform: 'translateY(0)' },
+          },
+        },
+        animation: {
+          'fade-up': 'fadeUp 1s cubic-bezier(0.2, 0.8, 0.2, 1) both',
+          'fade-up-delayed': 'fadeUp 1.2s cubic-bezier(0.2, 0.8, 0.2, 1) 0.3s forwards',
+        },
+      },
+    },
+  };
+</script>
+<style type="text/tailwindcss">
+  /* Noise-Textur als Overlay */
+  body::before {
+    content: "";
+    position: fixed;
+    inset: 0;
+    pointer-events: none;
+    opacity: 0.06;
+    mix-blend-mode: multiply;
+    background-image: url("data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' width='200' height='200'><filter id='n'><feTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='2' stitchTiles='stitch'/><feColorMatrix values='0 0 0 0 0.4  0 0 0 0 0.3  0 0 0 0 0.2  0 0 0 0.08 0'/></filter><rect width='100%25' height='100%25' filter='url(%23n)'/></svg>");
+    z-index: 1;
+  }
+  @layer components {
+    .back-link {
+      @apply inline-flex items-center gap-2 font-sans text-[0.85rem] font-medium tracking-[0.14em] uppercase text-ink no-underline opacity-70 transition-all duration-[250ms];
+    }
+    .back-link:hover { @apply opacity-100 -translate-x-[3px]; }
+
+    .offer-block {
+      @apply pl-6 border-l-[3px] border-terracotta mb-6;
+    }
+    .offer-block h2 {
+      @apply font-serif font-medium text-[clamp(1.4rem,2.6vw,1.85rem)] text-ink-deep leading-[1.2] mb-3;
+    }
+    .offer-list { @apply space-y-2; }
+    .offer-list li {
+      @apply relative font-serif font-normal text-[clamp(1.05rem,1.4vw,1.18rem)] text-ink leading-[1.45] pl-5;
+    }
+    .offer-list li::before {
+      content: "";
+      @apply absolute left-0 top-[0.62em] w-[5px] h-[5px] rounded-full bg-sage-deep;
+    }
+    .offer-block .lead {
+      @apply font-serif font-normal text-[clamp(1.02rem,1.3vw,1.12rem)] text-ink leading-[1.5] mb-3;
+    }
+    .offer-intro {
+      @apply font-serif font-normal text-[clamp(1.08rem,1.5vw,1.22rem)] text-ink leading-[1.55] mb-8 text-center;
+    }
+
+    .fuer-wen {
+      @apply rounded-[16px] px-7 py-6 border-l-[3px] border-terracotta;
+      background: #d6dac8;
+    }
+
+    .nav-btn {
+      @apply font-sans text-[1.13rem] font-medium tracking-[0.16em] uppercase text-[#4d5142] no-underline px-6 py-3 rounded-[10px] transition-all duration-200;
+      border: 1px solid rgba(139, 150, 120, 0.65);
+    }
+    .nav-btn:hover {
+      @apply -translate-y-px text-ink-deep;
+      background: rgba(139, 150, 120, 0.1);
+      border-color: rgba(139, 150, 120, 1);
+    }
+    .nav-btn.active {
+      @apply text-ink-deep;
+      background: rgba(139, 150, 120, 0.18);
+      border-color: rgba(139, 150, 120, 1);
+    }
+  }
+
+  /* Terracotta-Linie, die sich um den Button-Rahmen biegt */
+  @keyframes orbitDash {
+    to { stroke-dashoffset: -100; }
+  }
+  .orbit-btn { position: relative; }
+  .orbit-line {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    overflow: visible;
+    pointer-events: none;
+    z-index: 3;
+  }
+  .orbit-line rect {
+    fill: none;
+    stroke: #c66f52;
+    stroke-width: 2;
+    stroke-linecap: round;
+    stroke-dasharray: 8 92;
+    stroke-dashoffset: 0;
+    filter: drop-shadow(0 0 2px rgba(198, 111, 82, 0.5));
+    animation: orbitDash 16s linear infinite;
+  }
+  .orbit-btn:disabled .orbit-line { display: none; }
+  @media (prefers-reduced-motion: reduce) {
+    .orbit-line { display: none; }
+    .orbit-line rect { animation: none; }
+  }
+</style>
+</head>
+<body class="font-sans text-ink bg-champagne bg-fixed min-h-screen p-4 sm:p-8 relative overflow-x-hidden">
+  <div class="relative z-10 flex flex-col min-h-[calc(100vh-2rem)] sm:min-h-[calc(100vh-4rem)] pb-6 sm:pb-8">
+    <main class="flex-1 w-full flex flex-col items-center gap-3 sm:gap-5 pt-2 sm:pt-3">
+    <header class="text-center p-4 animate-fade-up">
+      <a href="via-mentis.html" aria-label="Zur Startseite">
+        <img
+          src="images/logo-final.png"
+          alt="Via Mentis"
+          class="block mx-auto w-full max-w-[90px] sm:max-w-[110px] drop-shadow-[0_6px_16px_rgba(198,111,82,0.22)]"
+        >
+      </a>
+    </header>
+
+    <section class="max-w-[640px] lg:max-w-[1040px] w-full px-4 opacity-0 animate-fade-up-delayed">
+
+      <div class="text-center mb-7">
+        <h1 class="font-serif font-medium text-[clamp(2.4rem,4.6vw,3.1rem)] text-ink leading-[1.15]">Mein Angebot</h1>
+      </div>
+
+      <p class="offer-intro lg:max-w-[680px] lg:mx-auto">
+        Jeder Mensch und jede Lebenssituation sind einzigartig. Die Begleitung findet in Ihrem
+        gewohnten Umfeld statt. In einem Erstgespräch bei Ihnen zu Hause erfolgt eine
+        psychiatrische und pflegerische Bedarfsabklärung.
+      </p>
+
+      <div class="lg:grid lg:grid-cols-2 lg:gap-x-12 lg:gap-y-2 lg:items-start">
+
+      <div class="offer-block">
+        <h2>Psychische Gesundheit</h2>
+        <p class="lead">Ich unterstütze Sie professionell und einfühlsam bei psychischen Belastungen und Krisen.</p>
+        <ul class="offer-list">
+          <li>Begleitung bei psychischen Erkrankungen</li>
+          <li>Früherkennung von Krisen und Rückfällen</li>
+          <li>Unterstützung in Krisensituationen</li>
+          <li>Erstellen eines Krisenplans</li>
+          <li>Erarbeiten und festigen individueller Bewältigungsstrategien</li>
+          <li>Unterstützung nach Klinikaufenthalten oder in Übergangsphasen</li>
+          <li>Förderung von Selbstbestimmung und Teilhabe</li>
+          <li>Beratung in Stressmanagement, Gesundheitsförderung, Schlafhygiene und Ernährung</li>
+        </ul>
+      </div>
+
+      <div class="offer-block">
+        <h2>Alltag &amp; Struktur</h2>
+        <p class="lead">Gemeinsam schaffen wir mehr Orientierung und Sicherheit im Alltag.</p>
+        <ul class="offer-list">
+          <li>Förderung Ihrer Selbstständigkeit und Ihrer Ressourcen</li>
+          <li>Aufbau und Umsetzung einer Tages- und Wochenstruktur</li>
+          <li>Begleitung in der Freizeitgestaltung</li>
+          <li>Unterstützung bei administrativen Anliegen und Begleitung zu Amts- oder Arztterminen</li>
+          <li>Begleitung in alltäglichen Tätigkeiten wie Einkaufen, Post etc.</li>
+          <li>Medikamentenmanagement</li>
+        </ul>
+      </div>
+
+      <div class="offer-block">
+        <h2>Vernetzung &amp; Begleitung</h2>
+        <p class="lead">Eine gute Zusammenarbeit mit allen Beteiligten stärkt die Unterstützung im Alltag.</p>
+        <ul class="offer-list">
+          <li>Zusammenarbeit mit Ärzt:innen, Therapeut:innen sowie weiteren Fachpersonen</li>
+          <li>Unterstützung in der Kontaktpflege mit Sozialdiensten, Beiständ:innen, IV</li>
+          <li>Unterstützung bei der Koordination von Hilfsangeboten</li>
+          <li>Beratung und Entlastung von Angehörigen</li>
+        </ul>
+      </div>
+
+      <div class="offer-block">
+        <h2>Ich begleite Menschen mit …</h2>
+        <ul class="offer-list">
+          <li>Depressionen und Erschöpfungszuständen</li>
+          <li>Angsterkrankungen und Panikstörungen</li>
+          <li>Bipolaren Erkrankungen</li>
+          <li>Psychotischen Erkrankungen</li>
+          <li>Persönlichkeitsstörungen</li>
+          <li>Psychosomatischen Beschwerden</li>
+          <li>Belastungs- und Anpassungsstörungen</li>
+          <li>Krisen und herausfordernden Lebenssituationen</li>
+          <li>Schwierigkeiten im sozialen oder beruflichen Alltag (Trauer, Trennung, Arbeitslosigkeit, IV etc.)</li>
+          <li>Belastungen im Jugend- und jungen Erwachsenenalter (Schule, Ausbildung, Lehrstellensuche etc.)</li>
+        </ul>
+      </div>
+
+      </div>
+
+      <div class="fuer-wen mt-7">
+        <div class="font-sans text-[0.82rem] font-medium tracking-[0.22em] uppercase text-sage-darker mb-3">Kosten</div>
+        <p class="font-serif font-normal text-[clamp(1.05rem,1.4vw,1.18rem)] text-ink leading-[1.55]">
+          Die Kosten werden mit einer ärztlichen Verordnung (Hausärzt:in oder Psychiater:in) von
+          der Krankenkasse übernommen. Mehr dazu unter
+          <a href="https://www.gsi.be.ch/content/dam/gsi/dokumente-bilder/de/dienstleistungen/formulare-gesuche-bewilligungen-nach-organisationsstruktur/gesundheitsamt/tarifblatt-2026-de.pdf" target="_blank" rel="noopener noreferrer" class="underline decoration-sage decoration-1 underline-offset-2 text-sage-darker hover:text-ink-deep transition-colors">Tarife &amp; Bedingungen</a>.
+        </p>
+      </div>
+
+    </section>
+    </main>
+
+    <footer class="w-full max-w-[720px] mx-auto px-4 mt-10">
+      <nav class="flex flex-wrap items-center justify-center gap-2.5 pt-7 border-t border-[rgba(139,150,120,0.3)]">
+        <a href="via-mentis.html" class="nav-btn orbit-btn"><svg class="orbit-line" aria-hidden="true" focusable="false"><rect x="0" y="0" width="100%" height="100%" rx="10" ry="10" pathLength="100"/></svg>Start</a>
+        <a href="ueber-uns.html" class="nav-btn orbit-btn"><svg class="orbit-line" aria-hidden="true" focusable="false"><rect x="0" y="0" width="100%" height="100%" rx="10" ry="10" pathLength="100"/></svg>Über mich</a>
+        <a href="gebiet.html" class="nav-btn orbit-btn"><svg class="orbit-line" aria-hidden="true" focusable="false"><rect x="0" y="0" width="100%" height="100%" rx="10" ry="10" pathLength="100"/></svg>Gebiet</a>
+        <a href="kontakt.html" class="nav-btn orbit-btn"><svg class="orbit-line" aria-hidden="true" focusable="false"><rect x="0" y="0" width="100%" height="100%" rx="10" ry="10" pathLength="100"/></svg>Kontakt</a>
+      </nav>
+    </footer>
+  </div>
+</body>
+</html>
