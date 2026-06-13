@@ -200,7 +200,10 @@
         </p>
       </div>
 
-      <form class="form-card" id="contactForm" novalidate>
+      <form class="form-card" id="contactForm" action="https://formsubmit.co/a.beck@via-mentis.ch" method="POST" novalidate>
+        <input type="hidden" name="_subject" value="Neue Anfrage über via-mentis.ch">
+        <input type="hidden" name="_template" value="table">
+        <input type="text" name="_honey" tabindex="-1" autocomplete="off" aria-hidden="true" class="hidden">
         <div class="grid grid-cols-1 sm:grid-cols-2 gap-4 mb-4">
           <div class="flex flex-col">
             <label for="name" class="form-label">Name<span class="text-terracotta ml-0.5">*</span></label>
@@ -263,7 +266,8 @@
   <script>
     const form = document.getElementById('contactForm');
     const success = document.getElementById('successMessage');
-    form.addEventListener('submit', (e) => {
+    const ENDPOINT = 'https://formsubmit.co/ajax/a.beck@via-mentis.ch';
+    form.addEventListener('submit', async (e) => {
       e.preventDefault();
       if (!form.checkValidity()) {
         form.reportValidity();
@@ -272,11 +276,21 @@
       const btn = form.querySelector('.submit-btn');
       btn.disabled = true;
       btn.textContent = 'Wird gesendet…';
-      setTimeout(() => {
+      try {
+        const res = await fetch(ENDPOINT, {
+          method: 'POST',
+          headers: { 'Accept': 'application/json' },
+          body: new FormData(form)
+        });
+        if (!res.ok) throw new Error('HTTP ' + res.status);
         form.style.display = 'none';
         success.classList.add('visible');
         success.scrollIntoView({ behavior: 'smooth', block: 'center' });
-      }, 700);
+      } catch (err) {
+        btn.disabled = false;
+        btn.textContent = 'Anfrage senden';
+        alert('Es gab ein Problem beim Senden. Bitte versuchen Sie es erneut oder schreiben Sie direkt an a.beck@via-mentis.ch.');
+      }
     });
   </script>
 </body>
