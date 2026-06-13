@@ -1,0 +1,10 @@
+# Lokale Sicherung (Git übernimmt jetzt die Versionierung)
+backup-2026-06-13/
+
+# OS-/Editor-Reste
+.DS_Store
+Thumbs.db
+desktop.ini
+*.tmp
+_*.png
+_*.jpg
